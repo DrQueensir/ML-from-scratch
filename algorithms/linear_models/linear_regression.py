@@ -1,12 +1,13 @@
 import numpy as np 
 
 class LinearRegression:
-    def __init__(self, learningrate=0.01,iterations=1000):
+    def __init__(self, learningrate=0.01,iterations=1000,optimizer="batch"):
         self.weights=None
         self.bias=None
 
         self.learningrate=learningrate
         self.iterations=iterations
+        self.optimizer=optimizer
 
         self.cost_history=[]
 
