@@ -65,8 +65,29 @@ class LinearRegression:
         samples=X.shape[0]
 
         for _ in range(self.iterations):
-            for _ in range(self.batch_size):
-                
+            indices= np.random.permutation(samples)
+            X_shuffled=X[indices]
+            Y_shuffled=Y[indices]
 
+            for start in range(0,samples,self.batch_size):
+                end=start+self.batch_size
+                X_batch=X_shuffled[start:end]
+                Y_batch=Y_shuffled[start:end]
+
+                y_pred=np.dot(X_batch,self.weights)+self.bias
+                y_error=Y_batch-y_pred
+
+                dw=(1/self.batch_size)*np.dot(X_batch,y_error)
+                db=(1/self.batch_size)*np.sum(y_error)
+
+                self.weights=self.weights - (self.learningrate*dw)
+                self.bias=self.bias - (self.learningrate*db)
+
+            prediction=np.dot(X,self.weights)+self.bias
+            error=prediction-Y
+            cost=(1/(2*samples))*np.sum(error**2)
+            self.cost_history.append(cost)
+
+            
     def predict(self,X):
         return np.dot(X,self.weights)+self.bias
