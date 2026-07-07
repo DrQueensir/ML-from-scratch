@@ -77,8 +77,8 @@ class LinearRegression:
                 y_pred=np.dot(X_batch,self.weights)+self.bias
                 y_error=Y_batch-y_pred
 
-                dw=(1/self.batch_size)*np.dot(X_batch,y_error)
-                db=(1/self.batch_size)*np.sum(y_error)
+                dw=(1/len(X_batch))*np.dot(X_batch,y_error)
+                db=(1/len(X_batch))*np.sum(y_error)
 
                 self.weights=self.weights - (self.learningrate*dw)
                 self.bias=self.bias - (self.learningrate*db)
@@ -88,6 +88,6 @@ class LinearRegression:
             cost=(1/(2*samples))*np.sum(error**2)
             self.cost_history.append(cost)
 
-            
+
     def predict(self,X):
         return np.dot(X,self.weights)+self.bias
