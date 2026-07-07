@@ -43,9 +43,5 @@ class LogisticRegression:
 
     def predict(self,X):
         probability= self._predict_probability(X)
-
-        if(probability>=0.5):
-            return 1
-        else :
-            return 0
+        return (probability>=0.5).astype(int)
         
