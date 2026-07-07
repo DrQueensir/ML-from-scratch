@@ -16,6 +16,7 @@ class LinearRegression:
         features=X.shape[1]
         self.weights=np.zeros(features)
         self.bias=0
+        self.cost_history=[]
 
         if self.optimizer=="batch":
             self._batch_gradient_descent(X,Y)
@@ -43,7 +44,8 @@ class LinearRegression:
     
     def _stochastic_gradient_descent(self,X,Y):
         samples=X.shape[0]
-        for _ in range(self.iterations):
+        indices = np.random.permutation(samples)
+        for i in indices:
             for i in range(samples):
                 x_i=X[i]
                 y_i=Y[i]
@@ -75,10 +77,12 @@ class LinearRegression:
                 Y_batch=Y_shuffled[start:end]
 
                 y_pred=np.dot(X_batch,self.weights)+self.bias
-                y_error=Y_batch-y_pred
+                y_error=y_pred-Y_batch
 
-                dw=(1/len(X_batch))*np.dot(X_batch,y_error)
-                db=(1/len(X_batch))*np.sum(y_error)
+                batch_size_actual = X_batch.shape[0]
+
+                dw=(1/batch_size_actual)*np.dot(X_batch.T,y_error)
+                db=(1/batch_size_actual)*np.sum(y_error)
 
                 self.weights=self.weights - (self.learningrate*dw)
                 self.bias=self.bias - (self.learningrate*db)
