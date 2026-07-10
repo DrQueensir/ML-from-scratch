@@ -44,4 +44,8 @@ class LogisticRegression:
     def predict(self,X):
         probability= self._predict_probability(X)
         return (probability>=0.5).astype(int)
+    
+    def score(self,X,Y):
+        predictions = self.predict(X)
+        return np.mean(predictions == Y)
         

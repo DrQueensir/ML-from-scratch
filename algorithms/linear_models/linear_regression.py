@@ -95,3 +95,7 @@ class LinearRegression:
 
     def predict(self,X):
         return np.dot(X,self.weights)+self.bias
+    
+    def score(self,X,Y):
+        predictions = self.predict(X)
+        return np.mean(predictions == Y)
