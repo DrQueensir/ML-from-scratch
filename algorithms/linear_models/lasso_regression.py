@@ -21,7 +21,7 @@ class LassoRegression:
             y_pred=np.dot(X,self.weights)+self.bias
             y_error=y_pred-Y
 
-            cost=((1/(2*samples))*np.sum(y_error**2))+((self.lambda_/2*samples)*np.sum(np.abs(self.weights)))
+            cost=((1/(2*samples))*np.sum(y_error**2))+((self.lambda_/samples)*np.sum(np.abs(self.weights)))
             self.cost_history.append(cost)
 
             dw=((1/samples)*np.dot(X.T,y_error))+((self.lambda_/samples)*np.sign(self.weights))
@@ -33,6 +33,10 @@ class LassoRegression:
     def predict(self,X):
         return np.dot(X,self.weights)+self.bias
        
-    def score(self,X,Y):
-        predictions=self.predict(X)
-        return np.mean(predictions==Y)
+    def score(self, X, Y):
+        predictions = self.predict(X)
+
+        ss_res = np.sum((Y - predictions)**2)
+        ss_tot = np.sum((Y - np.mean(Y))**2)
+
+        return 1 - (ss_res / ss_tot)

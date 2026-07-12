@@ -22,5 +22,4 @@ class PolynomialRegression:
         self.model.predict(X_poly)
 
     def score(self,X,Y):
-        predictions = self.predict(X)
-        return np.mean(predictions == Y)
+        return self.model.score(X,Y)
