@@ -25,7 +25,7 @@ class LogisticRegression:
         samples,features=X.shape
 
         self.weights=np.zeros(features)
-        self.bias=0
+        self.bias=0.0
 
         for _ in range(self.iterations):
             y_pred=self._predict_probability(X)

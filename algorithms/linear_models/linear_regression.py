@@ -15,7 +15,7 @@ class LinearRegression:
     def fit(self,X,Y):
         features=X.shape[1]
         self.weights=np.zeros(features)
-        self.bias=0
+        self.bias=0.0
         self.cost_history=[]
 
         if self.optimizer=="batch":

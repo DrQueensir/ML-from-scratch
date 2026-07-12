@@ -13,7 +13,7 @@ class Perceptron:
     def fit(self,X,Y):
         samples,features=X.shape
         self.weights=np.zeros(features)
-        self.bias=0
+        self.bias=0.0
         self.errors=[]
 
         for _ in range(self.iterations):
