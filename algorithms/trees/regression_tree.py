@@ -24,7 +24,9 @@ class RegressionTree:
     
     def score(self,X,Y):
         predictions=self.predict(X)
-        # more to add about R^2
+        rss=np.sum((Y-predictions)**2)
+        tss=np.sum((Y-np.mean(Y))**2)
+        return float((1-(rss/tss)))
 
     def _grow_tree(self,X,Y,depth):
         samples,features=X.shape
